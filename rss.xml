@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+  <channel>
+    <title>Yoso Hub Feed</title>
+    <link>https://yosoone.github.io/hub/</link>
+    <description>A curated feed of Yoso's content</description>
+    <item>
+      <title>Mastodon Post 1</title>
+      <link>https://mastodon.social/@Yosoone/post-link</link>
+      <description>Description or text from the Mastodon post.</description>
+      <pubDate>Thu, 27 Mar 2025 12:00:00 +0900</pubDate>
+    </item>
+    <item>
+      <title>Ghost Post 1</title>
+      <link>https://yoso-one.ghost.io/post-link</link>
+      <description>Summary of the Ghost post.</description>
+      <pubDate>Wed, 26 Mar 2025 10:30:00 +0900</pubDate>
+    </item>
+  </channel>
+</rss>
