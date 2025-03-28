@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mastodon Feed - Yosoone</title>
+    <title>Mastodon Feed - @Yosoone</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -34,6 +33,11 @@
         a:hover {
             text-decoration: underline;
         }
+        small {
+            display: block;
+            margin-top: 10px;
+            color: #aaa;
+        }
     </style>
 </head>
 <body>
@@ -42,36 +46,43 @@
 
     <script>
         async function fetchMastodonFeed() {
-            const response = await fetch('https://mastodon.social/@Yosoone.rss');
-            const data = await response.text();
-            const parser = new DOMParser();
-            const xml = parser.parseFromString(data, 'application/xml');
-            
-            const items = xml.querySelectorAll('item');
-            let html = '';
+            // RSS-to-JSON API Endpoint
+            const apiUrl = 'https://api.rss2json.com/v1/api.json?rss_url=https://mastodon.social/@Yosoone.rss';
 
-            items.forEach(item => {
-                const title = item.querySelector('title').textContent;
-                const link = item.querySelector('link').textContent;
-                const description = item.querySelector('description').textContent;
-                const date = new Date(item.querySelector('pubDate').textContent).toLocaleString();
+            try {
+                const response = await fetch(apiUrl);
+                const data = await response.json();
 
-                html += `
-                    <div class="post">
-                        <h3><a href="${link}" target="_blank">${title}</a></h3>
-                        <p>${description}</p>
-                        <small>Published: ${date}</small>
-                    </div>
-                `;
-            });
+                // Check if the API response is valid
+                if (data.status !== 'ok') {
+                    throw new Error('Error fetching feed');
+                }
 
-            document.getElementById('feed').innerHTML = html;
+                let html = '';
+                data.items.forEach(item => {
+                    const title = item.title || 'Untitled Post';
+                    const link = item.link;
+                    const description = item.description;
+                    const date = new Date(item.pubDate).toLocaleString();
+
+                    html += `
+                        <div class="post">
+                            <h3><a href="${link}" target="_blank">${title}</a></h3>
+                            <p>${description}</p>
+                            <small>Published: ${date}</small>
+                        </div>
+                    `;
+                });
+
+                document.getElementById('feed').innerHTML = html;
+            } catch (err) {
+                console.error('Error loading feed:', err);
+                document.getElementById('feed').innerHTML = 'Error loading feed. Please try again later.';
+            }
         }
 
-        fetchMastodonFeed().catch(err => {
-            console.error('Error fetching feed:', err);
-            document.getElementById('feed').innerHTML = 'Error loading feed.';
-        });
+        // Fetch Mastodon feed on page load
+        fetchMastodonFeed();
     </script>
 </body>
 </html>
