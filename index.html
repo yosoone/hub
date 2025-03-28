@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -47,6 +46,16 @@
             margin-top: 10px;
             border: 1px solid white;
         }
+        .hashtags {
+            margin-top: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+        .hashtag {
+            color: white;
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -74,10 +83,21 @@
                     tempDiv.innerHTML = item.description || '';
                     const cleanText = tempDiv.textContent || tempDiv.innerText || '';
                     
+                    // Separate hashtags
+                    const hashtagRegex = /#(\w+)/g;
+                    const hashtags = [];
+                    let match;
+                    while ((match = hashtagRegex.exec(cleanText)) !== null) {
+                        hashtags.push(match[1]);
+                    }
+                    
+                    // Remove hashtags from main text
+                    const textWithoutHashtags = cleanText.replace(hashtagRegex, '').trim();
+                    
                     // Limit text length and add ellipsis if too long
-                    const truncatedText = cleanText.length > 300 
-                        ? cleanText.substring(0, 300) + '...' 
-                        : cleanText;
+                    const truncatedText = textWithoutHashtags.length > 300 
+                        ? textWithoutHashtags.substring(0, 300) + '...' 
+                        : textWithoutHashtags;
                     
                     const contentDiv = document.createElement('div');
                     contentDiv.className = 'post-content';
@@ -93,7 +113,7 @@
 
                     // Check for links within the post content
                     const urlRegex = /(https?:\/\/[^\s]+)/g;
-                    const contentLinks = cleanText.match(urlRegex) || [];
+                    const contentLinks = textWithoutHashtags.match(urlRegex) || [];
                     
                     // Add link previews
                     if (contentLinks.length > 0) {
@@ -114,6 +134,23 @@
                     } else {
                         postDiv.appendChild(contentDiv);
                         postDiv.appendChild(linkDiv);
+                    }
+
+                    // Add hashtags
+                    if (hashtags.length > 0) {
+                        const hashtagsDiv = document.createElement('div');
+                        hashtagsDiv.className = 'hashtags';
+                        
+                        hashtags.forEach(tag => {
+                            const hashtagLink = document.createElement('a');
+                            hashtagLink.href = `https://mastodon.social/tags/${tag}`;
+                            hashtagLink.textContent = `#${tag}`;
+                            hashtagLink.className = 'hashtag';
+                            hashtagLink.target = '_blank';
+                            hashtagsDiv.appendChild(hashtagLink);
+                        });
+                        
+                        postDiv.appendChild(hashtagsDiv);
                     }
 
                     // Add thumbnail if available
