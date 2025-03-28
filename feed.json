@@ -1,0 +1,23 @@
+{
+  "version": "https://jsonfeed.org/version/1",
+  "title": "Yoso Hub Feed",
+  "home_page_url": "https://yosoone.github.io/hub/",
+  "feed_url": "https://yosoone.github.io/hub/feed.json",
+  "description": "A curated feed of Yoso's Mastodon and Ghost posts",
+  "items": [
+    {
+      "id": "1",
+      "title": "Mastodon Post 1",
+      "url": "https://mastodon.social/@Yosoone/post-link",
+      "content_text": "Description or text from the Mastodon post.",
+      "date_published": "2025-03-27T12:00:00+09:00"
+    },
+    {
+      "id": "2",
+      "title": "Ghost Post 1",
+      "url": "https://yoso-one.ghost.io/post-link",
+      "content_text": "Summary of the Ghost post.",
+      "date_published": "2025-03-26T10:30:00+09:00"
+    }
+  ]
+}
