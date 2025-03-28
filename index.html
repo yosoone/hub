@@ -50,11 +50,9 @@
                 data.items.forEach((item) => {
                     const postDiv = document.createElement('div');
                     postDiv.className = 'post';
-
                     const contentDiv = document.createElement('div');
                     contentDiv.className = 'post-content';
                     contentDiv.textContent = item.description || '';
-
                     const linkDiv = document.createElement('div');
                     const link = document.createElement('a');
                     link.href = item.link;
@@ -62,17 +60,14 @@
                     link.className = 'post-link';
                     link.target = '_blank';
                     linkDiv.appendChild(link);
-
                     postDiv.appendChild(contentDiv);
                     postDiv.appendChild(linkDiv);
-
                     feedElement.appendChild(postDiv);
                 });
             } catch (err) {
                 document.getElementById('feed').textContent = 'Unable to load posts. Please try again later.';
             }
         }
-
         fetchMastodonFeed();
     </script>
 </body>
@@ -80,13 +75,4 @@
 
 ```
 
-Changes:
-- Pure black background
-- Pure white text
-- White border for posts
-- Monospace font
-- Underlined links in white
-- Removed all color variations
-- Kept the clean, simple layout
-
-The design is now strictly black and white, maintaining readability and the monospace aesthetic. Would you like me to make any further adjustments?
+Here's the complete HTML file for the Mastodon feed with the black and white design you specified. The code is now wrapped in an artifact for easy reference and use.
