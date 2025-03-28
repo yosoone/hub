@@ -4,49 +4,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Terminal - Mastodon Feed</title>
+    <title>Mastodon Feed</title>
     <style>
         body {
-            font-family: 'Courier New', monospace;
-            background-color: #000000;
-            color: #ffffff;
-            margin: 0;
-            padding: 20px;
+            font-family: 'Courier New', 'Courier', monospace;
             line-height: 1.6;
-            font-size: 14px;
-        }
-        #terminal {
-            background-color: #000000;
-            padding: 10px;
-            max-width: 800px;
+            max-width: 700px;
             margin: 0 auto;
-            min-height: 400px;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-            font-family: 'Courier New', monospace;
+            padding: 20px;
+            color: white;
+            background-color: black;
         }
         .post {
+            background-color: black;
+            border: 1px solid white;
+            padding: 20px;
             margin-bottom: 20px;
-            border-bottom: 1px solid #333;
-            padding-bottom: 10px;
         }
         .post-content {
-            margin-bottom: 10px;
+            margin-bottom: 15px;
         }
-        a {
-            color: #0f0;
-            text-decoration: none;
-        }
-        a:hover {
+        .post-link {
+            display: inline-block;
+            color: white;
             text-decoration: underline;
         }
     </style>
 </head>
 <body>
-    <div id="terminal"></div>
+    <div id="feed"></div>
     <script>
-        const terminal = document.getElementById('terminal');
-
         async function fetchMastodonFeed() {
             const apiUrl = 'https://api.rss2json.com/v1/api.json?rss_url=https://mastodon.social/@Yosoone.rss';
             
@@ -55,35 +42,34 @@
                 const data = await response.json();
                 
                 if (data.status !== 'ok') {
-                    throw new Error('Feed retrieval failed');
+                    throw new Error('Could not load posts');
                 }
+                
+                const feedElement = document.getElementById('feed');
                 
                 data.items.forEach((item) => {
                     const postDiv = document.createElement('div');
                     postDiv.className = 'post';
 
-                    // Create content div
                     const contentDiv = document.createElement('div');
                     contentDiv.className = 'post-content';
                     contentDiv.textContent = item.description || '';
 
-                    // Create link div
                     const linkDiv = document.createElement('div');
                     const link = document.createElement('a');
                     link.href = item.link;
-                    link.textContent = 'View Original Post';
+                    link.textContent = 'View on Mastodon';
+                    link.className = 'post-link';
                     link.target = '_blank';
                     linkDiv.appendChild(link);
 
-                    // Append to post div
                     postDiv.appendChild(contentDiv);
                     postDiv.appendChild(linkDiv);
 
-                    // Append to terminal
-                    terminal.appendChild(postDiv);
+                    feedElement.appendChild(postDiv);
                 });
             } catch (err) {
-                terminal.textContent = 'Unable to load posts';
+                document.getElementById('feed').textContent = 'Unable to load posts. Please try again later.';
             }
         }
 
@@ -94,13 +80,13 @@
 
 ```
 
-I've made the feed more usable while maintaining the terminal aesthetic:
-- Kept the black background and monospace font
-- Added subtle separation between posts
-- Included a "View Original Post" link for each post
-- Maintained the terminal-style visual design
-- Improved readability
-- Added green link color for better visibility
-- Separated content and link for easier interaction
+Changes:
+- Pure black background
+- Pure white text
+- White border for posts
+- Monospace font
+- Underlined links in white
+- Removed all color variations
+- Kept the clean, simple layout
 
-The page looks like a terminal output but is now more user-friendly. Each post has its content and a link to the original post. Would you like me to make any further adjustments?
+The design is now strictly black and white, maintaining readability and the monospace aesthetic. Would you like me to make any further adjustments?
