@@ -110,3 +110,56 @@
                     linkDiv.appendChild(link);
 
                     postDiv.appendChild(contentDiv);
+                    postDiv.appendChild(linkDiv);
+
+                    // Add clickable thumbnail if available (specific to Ghost feed)
+                    if (platform === 'Ghost' && item.enclosure && item.enclosure.link) {
+                        const thumbnailLink = document.createElement('a');
+                        thumbnailLink.href = item.link;
+                        thumbnailLink.target = '_blank';
+
+                        const thumbnailImg = document.createElement('img');
+                        thumbnailImg.src = item.enclosure.link;
+                        thumbnailImg.alt = 'Post thumbnail';
+                        thumbnailImg.className = 'thumbnail';
+                        thumbnailImg.onerror = function () {
+                            this.style.display = 'none';
+                        };
+
+                        thumbnailLink.appendChild(thumbnailImg);
+                        postDiv.appendChild(thumbnailLink);
+                    }
+
+                    // Add hashtags
+                    if (hashtags.length > 0) {
+                        const hashtagsDiv = document.createElement('div');
+                        hashtagsDiv.className = 'hashtags';
+
+                        hashtags.forEach(tag => {
+                            const hashtagLink = document.createElement('a');
+                            hashtagLink.href = platform === 'Mastodon'
+                                ? `https://mastodon.social/tags/${tag}`
+                                : `https://yoso-one.ghost.io/tag/${tag}`;
+                            hashtagLink.textContent = `#${tag}`;
+                            hashtagLink.className = 'hashtag';
+                            hashtagLink.target = '_blank';
+                            hashtagsDiv.appendChild(hashtagLink);
+                        });
+
+                        postDiv.appendChild(hashtagsDiv);
+                    }
+
+                    feedElement.appendChild(postDiv);
+                });
+            } catch (err) {
+                console.error(err);
+                document.getElementById('feed').textContent = `Unable to load ${platform} posts. Please try again later.`;
+            }
+        }
+
+        // Fetch both Mastodon and Ghost feeds
+        fetchFeed('https://api.rss2json.com/v1/api.json?rss_url=https://mastodon.social/@Yosoone.rss', 'Mastodon');
+        fetchFeed('https://api.rss2json.com/v1/api.json?rss_url=https://yoso-one.ghost.io/rss/', 'Ghost');
+    </script>
+</body>
+</html>
