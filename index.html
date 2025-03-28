@@ -60,9 +60,10 @@
 
                 let html = '';
                 data.items.forEach(item => {
-                    const title = item.title || 'Untitled Post';
+                    // Add "mast_" prefix to the title
+                    const title = `mast_${item.title || 'Untitled Post'}`;
                     const link = item.link;
-                    const description = item.description;
+                    const description = item.description || 'No description available.';
                     const date = new Date(item.pubDate).toLocaleString();
 
                     html += `
