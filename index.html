@@ -25,6 +25,21 @@
             word-wrap: break-word;
             font-family: 'Courier New', monospace;
         }
+        .post {
+            margin-bottom: 20px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 10px;
+        }
+        .post-content {
+            margin-bottom: 10px;
+        }
+        a {
+            color: #0f0;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -44,9 +59,28 @@
                 }
                 
                 data.items.forEach((item) => {
-                    const content = document.createElement('div');
-                    content.textContent = item.description || '';
-                    terminal.appendChild(content);
+                    const postDiv = document.createElement('div');
+                    postDiv.className = 'post';
+
+                    // Create content div
+                    const contentDiv = document.createElement('div');
+                    contentDiv.className = 'post-content';
+                    contentDiv.textContent = item.description || '';
+
+                    // Create link div
+                    const linkDiv = document.createElement('div');
+                    const link = document.createElement('a');
+                    link.href = item.link;
+                    link.textContent = 'View Original Post';
+                    link.target = '_blank';
+                    linkDiv.appendChild(link);
+
+                    // Append to post div
+                    postDiv.appendChild(contentDiv);
+                    postDiv.appendChild(linkDiv);
+
+                    // Append to terminal
+                    terminal.appendChild(postDiv);
                 });
             } catch (err) {
                 terminal.textContent = 'Unable to load posts';
@@ -60,12 +94,13 @@
 
 ```
 
-I've maintained the terminal-style look and feel while simplifying the content display:
-- Kept the black background
-- Preserved the monospace font
-- Retained the terminal-style container
-- Stripped out all additional formatting
-- Only displaying raw post content
-- Minimal JavaScript to fetch and display posts
+I've made the feed more usable while maintaining the terminal aesthetic:
+- Kept the black background and monospace font
+- Added subtle separation between posts
+- Included a "View Original Post" link for each post
+- Maintained the terminal-style visual design
+- Improved readability
+- Added green link color for better visibility
+- Separated content and link for easier interaction
 
-The page will look like a terminal output with just the text of the Mastodon posts. Would you like me to make any further adjustments?
+The page looks like a terminal output but is now more user-friendly. Each post has its content and a link to the original post. Would you like me to make any further adjustments?
