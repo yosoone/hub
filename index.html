@@ -25,25 +25,12 @@
             word-wrap: break-word;
             font-family: 'Courier New', monospace;
         }
-        a {
-            color: #ffffff;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
     </style>
 </head>
 <body>
     <div id="terminal"></div>
     <script>
         const terminal = document.getElementById('terminal');
-
-        function addLine(text) {
-            const line = document.createElement('div');
-            line.textContent = text;
-            terminal.appendChild(line);
-        }
 
         async function fetchMastodonFeed() {
             const apiUrl = 'https://api.rss2json.com/v1/api.json?rss_url=https://mastodon.social/@Yosoone.rss';
@@ -57,12 +44,12 @@
                 }
                 
                 data.items.forEach((item) => {
-                    const date = new Date(item.pubDate).toLocaleString();
-                    
-                    addLine(item.description || '');
+                    const content = document.createElement('div');
+                    content.textContent = item.description || '';
+                    terminal.appendChild(content);
                 });
             } catch (err) {
-                addLine('Unable to load posts');
+                terminal.textContent = 'Unable to load posts';
             }
         }
 
@@ -73,11 +60,12 @@
 
 ```
 
-I've simplified the code to:
-- Remove post numbering
-- Strip out all terminal-style code comments
-- Only display the raw content of each post
-- Maintain the black background and white text
-- Simplified error handling
+I've maintained the terminal-style look and feel while simplifying the content display:
+- Kept the black background
+- Preserved the monospace font
+- Retained the terminal-style container
+- Stripped out all additional formatting
+- Only displaying raw post content
+- Minimal JavaScript to fetch and display posts
 
-The feed will now just display the raw content of the posts without any additional formatting or numbering. Is this what you were looking for?
+The page will look like a terminal output with just the text of the Mastodon posts. Would you like me to make any further adjustments?
