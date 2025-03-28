@@ -1,3 +1,4 @@
+beta
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,6 +28,13 @@
             display: inline-block;
             color: white;
             text-decoration: underline;
+            margin-bottom: 10px;
+        }
+        .link-preview {
+            border: 1px solid gray;
+            padding: 10px;
+            margin-top: 10px;
+            word-break: break-all;
         }
     </style>
 </head>
@@ -64,16 +72,41 @@
                     contentDiv.className = 'post-content';
                     contentDiv.textContent = truncatedText;
                     
+                    // Main post link
                     const linkDiv = document.createElement('div');
                     const link = document.createElement('a');
                     link.href = item.link;
                     link.textContent = 'View full post on Mastodon';
                     link.className = 'post-link';
                     link.target = '_blank';
-                    
                     linkDiv.appendChild(link);
-                    postDiv.appendChild(contentDiv);
-                    postDiv.appendChild(linkDiv);
+
+                    // Check for links within the post content
+                    const urlRegex = /(https?:\/\/[^\s]+)/g;
+                    const contentLinks = cleanText.match(urlRegex) || [];
+                    
+                    // Add link previews
+                    if (contentLinks.length > 0) {
+                        const linkPreviewDiv = document.createElement('div');
+                        linkPreviewDiv.className = 'link-preview';
+                        
+                        contentLinks.forEach(linkUrl => {
+                            const contentLink = document.createElement('a');
+                            contentLink.href = linkUrl;
+                            contentLink.textContent = linkUrl;
+                            contentLink.target = '_blank';
+                            contentLink.style.display = 'block';
+                            contentLink.style.marginBottom = '5px';
+                            linkPreviewDiv.appendChild(contentLink);
+                        });
+                        
+                        postDiv.appendChild(contentDiv);
+                        postDiv.appendChild(linkDiv);
+                        postDiv.appendChild(linkPreviewDiv);
+                    } else {
+                        postDiv.appendChild(contentDiv);
+                        postDiv.appendChild(linkDiv);
+                    }
                     
                     feedElement.appendChild(postDiv);
                 });
@@ -85,4 +118,3 @@
     </script>
 </body>
 </html>
-
