@@ -4,9 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="alternate" type="application/json" title="JSON Feed" href="https://yosoone.github.io/hub/feed.json">
-<link rel="alternate" type="application/rss+xml" title="RSS Feed" href="https://yosoone.github.io/hub/rss.xml">
-
-
+    <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="https://yosoone.github.io/hub/rss.xml">
+    <link rel="alternate" type="application/rss+xml" title="Japanese Tattoo Feed" href="https://tattoo.yoso.eu/japanesetattoo?format=rss">
 
     <title>Mastodon & Ghost Feed</title>
     <style>
@@ -88,8 +87,8 @@
                     });
                 });
 
-                // Check if both feeds have loaded before rendering
-                if (allPosts.length >= data.items.length * 2) {
+                // Check if all feeds have loaded before rendering
+                if (allPosts.length >= data.items.length * 3) {
                     renderPosts();
                 }
             } catch (err) {
@@ -127,15 +126,20 @@
                 const linkDiv = document.createElement('div');
                 const link = document.createElement('a');
                 link.href = item.link;
-                link.textContent = item.platform === 'Mastodon' ? 'View full post on Mastodon' : 'Read more on Ghost';
+                link.textContent =
+                    item.platform === 'Mastodon'
+                        ? 'View full post on Mastodon'
+                        : item.platform === 'Ghost'
+                        ? 'Read more on Ghost'
+                        : 'Read more on Japanese Tattoo';
                 link.target = '_blank';
                 linkDiv.appendChild(link);
 
                 postDiv.appendChild(contentDiv);
                 postDiv.appendChild(linkDiv);
 
-                // Add clickable thumbnail if available (specific to Ghost feed)
-                if (item.platform === 'Ghost' && item.enclosure) {
+                // Add clickable thumbnail if available (specific to Ghost or Tattoo feed)
+                if ((item.platform === 'Ghost' || item.platform === 'Japanese Tattoo') && item.enclosure) {
                     const thumbnailLink = document.createElement('a');
                     thumbnailLink.href = item.link;
                     thumbnailLink.target = '_blank';
@@ -156,9 +160,10 @@
             });
         }
 
-        // Fetch both Mastodon and Ghost feeds
+        // Fetch all three feeds
         fetchFeed('https://api.rss2json.com/v1/api.json?rss_url=https://mastodon.social/@Yosoone.rss', 'Mastodon');
         fetchFeed('https://api.rss2json.com/v1/api.json?rss_url=https://yoso-one.ghost.io/rss/', 'Ghost');
+        fetchFeed('https://api.rss2json.com/v1/api.json?rss_url=https://tattoo.yoso.eu/japanesetattoo?format=rss', 'Japanese Tattoo');
     </script>
 </body>
 </html>
