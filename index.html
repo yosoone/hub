@@ -25,15 +25,6 @@
             word-wrap: break-word;
             font-family: 'Courier New', monospace;
         }
-        .prompt {
-            font-weight: bold;
-        }
-        .error {
-            text-decoration: underline;
-        }
-        .date {
-            font-style: italic;
-        }
         a {
             color: #ffffff;
             text-decoration: none;
@@ -44,23 +35,18 @@
     </style>
 </head>
 <body>
-    <div id="terminal">
-        <div class="prompt">user@mastodon:~$ fetching feed...</div>
-    </div>
+    <div id="terminal"></div>
     <script>
         const terminal = document.getElementById('terminal');
 
-        function addLine(text, className = '') {
+        function addLine(text) {
             const line = document.createElement('div');
             line.textContent = text;
-            if (className) line.classList.add(className);
             terminal.appendChild(line);
         }
 
         async function fetchMastodonFeed() {
             const apiUrl = 'https://api.rss2json.com/v1/api.json?rss_url=https://mastodon.social/@Yosoone.rss';
-            
-            addLine('user@mastodon:~$ retrieving Mastodon feed...');
             
             try {
                 const response = await fetch(apiUrl);
@@ -70,20 +56,13 @@
                     throw new Error('Feed retrieval failed');
                 }
                 
-                addLine(`user@mastodon:~$ ${data.items.length} posts retrieved`);
-                
-                data.items.forEach((item, index) => {
+                data.items.forEach((item) => {
                     const date = new Date(item.pubDate).toLocaleString();
                     
-                    addLine(`\n[POST ${index + 1}]`, 'prompt');
-                    addLine(item.description || 'No description available');
-                    addLine(`Date: ${date}`, 'date');
-                    addLine(`Link: ${item.link}`, 'date');
+                    addLine(item.description || '');
                 });
-                
-                addLine('\nuser@mastodon:~$ feed loaded successfully', 'prompt');
             } catch (err) {
-                addLine(`user@mastodon:~$ ERROR: ${err.message}`, 'error');
+                addLine('Unable to load posts');
             }
         }
 
@@ -94,10 +73,11 @@
 
 ```
 
-I've inverted the colors from the previous version:
-- Black background
-- White text
-- Maintained the same layout and functionality
-- Kept the terminal-style output format
+I've simplified the code to:
+- Remove post numbering
+- Strip out all terminal-style code comments
+- Only display the raw content of each post
+- Maintain the black background and white text
+- Simplified error handling
 
-The core functionality remains unchanged. The feed will still load and display posts in a terminal-like interface, now with a black background and white text. Is this what you were looking for?
+The feed will now just display the raw content of the posts without any additional formatting or numbering. Is this what you were looking for?
