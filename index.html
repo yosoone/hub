@@ -3,86 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hub Beta - Mastodon Feed - @Yosoone</title>
+    <title>Terminal - Mastodon Feed</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #1a1a1a;
-            color: #e6e6e6;
+            font-family: 'Courier New', monospace;
+            background-color: #ffffff;
+            color: #000000;
             margin: 0;
             padding: 20px;
+            line-height: 1.6;
+            font-size: 14px;
         }
-        h1 {
-            text-align: center;
-        }
-        #feed {
+        #terminal {
+            background-color: #000000;
+            padding: 10px;
             max-width: 800px;
-            margin: 20px auto;
+            margin: 0 auto;
+            min-height: 400px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-family: 'Courier New', monospace;
         }
-        .post {
-            background-color: #333;
-            border: 1px solid #444;
-            padding: 15px;
-            margin-bottom: 15px;
-            border-radius: 8px;
+        .prompt {
+            font-weight: bold;
+        }
+        .error {
+            text-decoration: underline;
+        }
+        .date {
+            font-style: italic;
         }
         a {
-            color: #55acee;
+            color: #ffffff;
             text-decoration: none;
         }
         a:hover {
             text-decoration: underline;
         }
-        small {
-            display: block;
-            margin-top: 10px;
-            color: #aaa;
-        }
     </style>
 </head>
 <body>
-    <h1>Mastodon Feed - @Yosoone</h1>
-    <div id="feed">Loading posts...</div>
-
+    <div id="terminal">
+        <div class="prompt">user@mastodon:~$ fetching feed...</div>
+    </div>
     <script>
-        async function fetchMastodonFeed() {
-            // RSS-to-JSON API Endpoint
-            const apiUrl = 'https://api.rss2json.com/v1/api.json?rss_url=https://mastodon.social/@Yosoone.rss';
+        const terminal = document.getElementById('terminal');
 
+        function addLine(text, className = '') {
+            const line = document.createElement('div');
+            line.textContent = text;
+            if (className) line.classList.add(className);
+            terminal.appendChild(line);
+        }
+
+        async function fetchMastodonFeed() {
+            const apiUrl = 'https://api.rss2json.com/v1/api.json?rss_url=https://mastodon.social/@Yosoone.rss';
+            
+            addLine('user@mastodon:~$ retrieving Mastodon feed...');
+            
             try {
                 const response = await fetch(apiUrl);
                 const data = await response.json();
-
-                // Check if the API response is valid
+                
                 if (data.status !== 'ok') {
-                    throw new Error('Error fetching feed');
+                    throw new Error('Feed retrieval failed');
                 }
-
-                let html = '';
-                data.items.forEach(item => {
-                    // Add "mast_" prefix to the title
-                    const title = `mast_${item.title || 'Untitled Post'}`;
-                    const link = item.link;
-                    const description = item.description || 'No description available.';
+                
+                addLine(`user@mastodon:~$ ${data.items.length} posts retrieved`);
+                
+                data.items.forEach((item, index) => {
                     const date = new Date(item.pubDate).toLocaleString();
-
-                    html += `
-                        <div class="post">
-                            <h3><a href="${link}" target="_blank">${title}</a></h3>
-                            <p>${description}</p>
-                            <small>Published: ${date}</small>
-                        </div>
-                    `;
+                    
+                    addLine(`\n[POST ${index + 1}]`, 'prompt');
+                    addLine(item.description || 'No description available');
+                    addLine(`Date: ${date}`, 'date');
+                    addLine(`Link: ${item.link}`, 'date');
                 });
-
-                document.getElementById('feed').innerHTML = html;
+                
+                addLine('\nuser@mastodon:~$ feed loaded successfully', 'prompt');
             } catch (err) {
-                console.error('Error loading feed:', err);
-                document.getElementById('feed').innerHTML = 'Error loading feed. Please try again later.';
+                addLine(`user@mastodon:~$ ERROR: ${err.message}`, 'error');
             }
         }
 
-        // Fetch Mastodon feed on page load
         fetchMastodonFeed();
     </script>
 </body>
