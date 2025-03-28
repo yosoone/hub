@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,6 +40,12 @@
         .link-preview a {
             display: block;
             margin-bottom: 5px;
+        }
+        .thumbnail {
+            max-width: 100%;
+            height: auto;
+            margin-top: 10px;
+            border: 1px solid white;
         }
     </style>
 </head>
@@ -108,6 +115,18 @@
                         postDiv.appendChild(contentDiv);
                         postDiv.appendChild(linkDiv);
                     }
+
+                    // Add thumbnail if available
+                    if (item.enclosure && item.enclosure.link) {
+                        const thumbnailImg = document.createElement('img');
+                        thumbnailImg.src = item.enclosure.link;
+                        thumbnailImg.alt = 'Post thumbnail';
+                        thumbnailImg.className = 'thumbnail';
+                        thumbnailImg.onerror = function() {
+                            this.style.display = 'none';
+                        };
+                        postDiv.appendChild(thumbnailImg);
+                    }
                     
                     feedElement.appendChild(postDiv);
                 });
@@ -119,3 +138,4 @@
     </script>
 </body>
 </html>
+
