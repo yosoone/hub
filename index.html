@@ -112,6 +112,18 @@
                     postDiv.appendChild(contentDiv);
                     postDiv.appendChild(linkDiv);
 
+                    // Add thumbnail if available (specific to Ghost feed)
+                    if (platform === 'Ghost' && item.enclosure && item.enclosure.link) {
+                        const thumbnailImg = document.createElement('img');
+                        thumbnailImg.src = item.enclosure.link;
+                        thumbnailImg.alt = 'Post thumbnail';
+                        thumbnailImg.className = 'thumbnail';
+                        thumbnailImg.onerror = function () {
+                            this.style.display = 'none';
+                        };
+                        postDiv.appendChild(thumbnailImg);
+                    }
+
                     // Add hashtags
                     if (hashtags.length > 0) {
                         const hashtagsDiv = document.createElement('div');
