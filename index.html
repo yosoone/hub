@@ -144,6 +144,18 @@ h2 {
 }
 .btn:hover { background: var(--ai); }
 .btn:focus-visible { outline: 2px solid var(--ai); outline-offset: 3px; }
+.list-form { display: grid; gap: 0.45rem; margin-top: 0.3rem; }
+.list-form label { font-family: var(--f-mono); font-size: 0.72rem; letter-spacing: 0.06em; color: var(--ink-soft); }
+.list-row { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.list-row input {
+  flex: 1 1 11rem; min-width: 0;
+  font: inherit; font-size: 1rem; color: var(--ink);
+  background: transparent; border: 1px solid var(--rule); padding: 0.5rem 0.65rem;
+}
+.list-row input::placeholder { color: var(--ink-soft); }
+.list-row input:focus-visible { outline: 2px solid var(--ai); outline-offset: 2px; border-color: var(--ai); }
+.list-row .btn { margin-top: 0; border: 0; cursor: pointer; }
+.box .list-note { font-size: 0.8rem; }
 .feeds { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.25rem; }
 .feeds a { font-family: var(--f-mono); font-size: 0.8rem; color: var(--ai); text-underline-offset: 3px; }
 
@@ -236,11 +248,20 @@ html,body{margin:0}
   <section aria-labelledby="follow-h">
     <h2 id="follow-h">Follow along</h2>
     <div class="follow">
-      <div class="box">
+      <div class="box" id="mailing-list">
         <h3>Mailing list</h3>
         <p>Occasional letters when something new is finished. No schedule, no noise.</p>
-        <!-- TODO: replace href with the mailing-list signup URL -->
-        <a class="btn" href="#mailing-list">Subscribe</a>
+        <!-- Mailing list: one Buttondown list for all sites; the hidden tag records which site the sign-up came from. -->
+        <form class="list-form" action="https://buttondown.com/api/emails/embed-subscribe/yoso" method="post" target="_blank">
+          <label for="list-email">Email address</label>
+          <div class="list-row">
+            <input id="list-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+            <button class="btn" type="submit">Subscribe</button>
+          </div>
+          <input type="hidden" name="tag" value="hub">
+          <input type="hidden" name="embed" value="1">
+          <p class="list-note">Sent through Buttondown. You&rsquo;ll get an email to confirm, and every letter has an unsubscribe link.</p>
+        </form>
       </div>
       <div class="box">
         <h3>RSS</h3>
