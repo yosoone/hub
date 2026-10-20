@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="alternate" type="application/json" title="JSON Feed" href="https://yosoone.github.io/hub/feed.json">
+    <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="https://yosoone.github.io/hub/rss.xml">
+    <link rel="alternate" type="application/rss+xml" title="Japanese Tattoo Feed" href="https://tattoo.yoso.eu/japanesetattoo?format=rss">
+
+    <title>Mastodon & Ghost Feed</title>
+    <style>
+        body {
+            font-family: 'Courier New', 'Courier', monospace;
+            line-height: 1.6;
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 20px;
+            color: white;
+            background-color: black;
+        }
+        .post {
+            background-color: black;
+            border: 1px solid white;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .post-content {
+            margin-bottom: 15px;
+        }
+        a {
+            color: white;
+            text-decoration: underline;
+            outline: none;
+        }
+        a:focus, a:hover {
+            text-decoration: none;
+        }
+        .link-preview {
+            padding: 10px;
+            margin-top: 10px;
+            word-break: break-all;
+        }
+        .link-preview a {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .thumbnail {
+            max-width: 100%;
+            height: auto;
+            margin-top: 10px;
+            border: 1px solid white;
+        }
+        .hashtags {
+            margin-top: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+        .hashtag {
+            color: white;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div id="feed"></div>
+    <script>
+        let allPosts = [];
+
+        async function fetchFeed(apiUrl, platform) {
+            try {
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+
+                if (data.status !== 'ok') {
+                    throw new Error(`Could not load ${platform} posts`);
+                }
+
+                data.items.forEach((item) => {
+                    allPosts.push({
+                        platform,
+                        title: item.title,
+                        link: item.link,
+                        description: item.description || '',
+                        pubDate: new Date(item.pubDate),
+                        enclosure: item.enclosure ? item.enclosure.link : null,
+                    });
+                });
+
+                // Check if all feeds have loaded before rendering
+                if (allPosts.length >= data.items.length * 3) {
+                    renderPosts();
+                }
+            } catch (err) {
+                console.error(err);
+                document.getElementById('feed').textContent = `Unable to load ${platform} posts. Please try again later.`;
+            }
+        }
+
+        function renderPosts() {
+            // Sort posts by publication date (newest first)
+            allPosts.sort((a, b) => b.pubDate - a.pubDate);
+
+            const feedElement = document.getElementById('feed');
+            feedElement.innerHTML = ''; // Clear existing content
+
+            allPosts.forEach((item) => {
+                const postDiv = document.createElement('div');
+                postDiv.className = 'post';
+
+                // Clean up description (remove HTML tags)
+                const tempDiv = document.createElement('div');
+                tempDiv.innerHTML = item.description;
+                const cleanText = tempDiv.textContent || tempDiv.innerText || '';
+
+                // Limit text length and add ellipsis if too long
+                const truncatedText = cleanText.length > 300
+                    ? cleanText.substring(0, 300) + '...'
+                    : cleanText;
+
+                const contentDiv = document.createElement('div');
+                contentDiv.className = 'post-content';
+                contentDiv.textContent = truncatedText;
+
+                // Main post link
+                const linkDiv = document.createElement('div');
+                const link = document.createElement('a');
+                link.href = item.link;
+                link.textContent =
+                    item.platform === 'Mastodon'
+                        ? 'View full post on Mastodon'
+                        : item.platform === 'Ghost'
+                        ? 'Read more on Ghost'
+                        : 'Read more on Japanese Tattoo';
+                link.target = '_blank';
+                linkDiv.appendChild(link);
+
+                postDiv.appendChild(contentDiv);
+                postDiv.appendChild(linkDiv);
+
+                // Add clickable thumbnail if available (specific to Ghost or Tattoo feed)
+                if ((item.platform === 'Ghost' || item.platform === 'Japanese Tattoo') && item.enclosure) {
+                    const thumbnailLink = document.createElement('a');
+                    thumbnailLink.href = item.link;
+                    thumbnailLink.target = '_blank';
+
+                    const thumbnailImg = document.createElement('img');
+                    thumbnailImg.src = item.enclosure;
+                    thumbnailImg.alt = 'Post thumbnail';
+                    thumbnailImg.className = 'thumbnail';
+                    thumbnailImg.onerror = function () {
+                        this.style.display = 'none';
+                    };
+
+                    thumbnailLink.appendChild(thumbnailImg);
+                    postDiv.appendChild(thumbnailLink);
+                }
+
+                feedElement.appendChild(postDiv);
+            });
+        }
+
+        // Fetch all three feeds
+        fetchFeed('https://api.rss2json.com/v1/api.json?rss_url=https://mastodon.social/@Yosoone.rss', 'Mastodon');
+        fetchFeed('https://api.rss2json.com/v1/api.json?rss_url=https://yoso-one.ghost.io/rss/', 'Ghost');
+        fetchFeed('https://api.rss2json.com/v1/api.json?rss_url=https://tattoo.yoso.eu/japanesetattoo?format=rss', 'Japanese Tattoo');
+    </script>
+</body>
+</html>
