@@ -29,3 +29,31 @@ Yoso's hub page: one static page linking to the vault, paintings, photography, s
 
 - [ ] Mailing-list signup URL (`#mailing-list` placeholder in `index.html`)
 - [ ] Confirm the RSS feed address for each site
+
+## Safety: check, publish, undo
+
+**Before publishing**, run the check in this folder:
+
+```
+python3 check.py
+```
+
+It looks for broken HTML, links to missing files, script errors, a missing hub link or mailing-list form, and a broken `feed.xml` or `robots.txt`. GitHub runs the same check on every push ('Check and publish' under the Actions tab). Once Settings → Pages → Source is set to **GitHub Actions**, a version that fails the check is never published: the live site keeps its last good version, and GitHub emails you what went wrong.
+
+**To undo the last change**, in this folder:
+
+```
+git revert HEAD
+git push
+```
+
+**To go back to a known-good version** (kept as branches named `good-YYYY-MM-DD`):
+
+```
+git fetch origin
+git checkout origin/good-2026-10-20 -- .
+git commit -m "Back to the good version of 20 October 2026"
+git push
+```
+
+A full copy of this site, with its history, is also backed up to the external drive (`BLACK_PUNK_/00 Yoso_one Websites Back up`).
