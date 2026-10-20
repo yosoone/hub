@@ -43,6 +43,10 @@ body {
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
 }
+/* Family mark: centred at the top of every Yoso site, linking to the hub */
+.family-mark { display: block; width: 48px; margin: 24px auto 0; line-height: 0; }
+.family-mark img { display: block; width: 48px; height: 48px; }
+.family-mark:focus-visible { outline: 2px solid var(--ai); outline-offset: 4px; }
 .page {
   max-width: 38rem;
   margin: 0 auto;
@@ -171,6 +175,7 @@ html,body{margin:0}
 
 </head>
 <body>
+<a class="family-mark" href="https://hub.yoso.one"><img src="images/yoso-mark.png" alt="Yoso" width="48" height="48"></a>
 <main class="page">
   <header>
     <span class="mark">HUB.YOSO.ONE · 宮崎</span>
