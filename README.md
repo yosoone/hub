@@ -31,6 +31,16 @@ Yoso's hub page: one static page linking to the vault, paintings, photography, s
 - [ ] Mailing-list signup URL (`#mailing-list` placeholder in `index.html`)
 - [ ] Confirm the RSS feed address for each site
 
+## Publishing an update (beta number)
+
+The footer of every page shows the site's beta number, for example 'Beta 0.4'. It goes up by one with each update. To publish, in this folder:
+
+```
+python3 release.py "What changed"
+```
+
+That moves the number up (kept in `VERSION`), writes it into every footer, runs the check below, and commits and pushes. If the check fails, nothing is changed and the number stays where it was. Edits made straight on GitHub's website do not move the number; the next `release.py` run catches up.
+
 ## Safety: check, publish, undo
 
 **Before publishing**, run the check in this folder:
