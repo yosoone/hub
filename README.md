@@ -1,11 +1,12 @@
 # hub.yoso.one
 
-Yoso's hub page: one static page linking to paintings, photography, short texts, Mastodon, the mailing list and RSS feeds.
+Yoso's hub page: one static page linking to the vault, paintings, photography, short texts, Mastodon, the mailing list and RSS feeds.
 
 ## Sites
 
 | Site | Address | Content |
 |---|---|---|
+| The Vault | [one.yoso.one](https://one.yoso.one) | Notes on Buddhism, Shinto, meditation, kokoro and Japan (Obsidian Publish) |
 | Kuro | [kuro.yoso.one](https://kuro.yoso.one) | Black-and-white photography of Japan |
 | Shinsei | [shinsei.yoso.one](https://shinsei.yoso.one) | Sumi-e paintings and hanging scrolls |
 | River | [river.yoso.one](https://river.yoso.one) | Short texts |
