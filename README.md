@@ -10,6 +10,7 @@ Yoso's hub page: one static page linking to the vault, paintings, photography, s
 | Kuro | [kuro.yoso.one](https://kuro.yoso.one) | Black-and-white photography of Japan |
 | Shinsei | [shinsei.yoso.one](https://shinsei.yoso.one) | Sumi-e paintings and hanging scrolls |
 | River | [river.yoso.one](https://river.yoso.one) | Short texts |
+| On | [on.yoso.one](https://on.yoso.one) | Magazine gathering new work from all the sites |
 | Mastodon | [@Yosoone](https://mastodon.social/@Yosoone) | Day-to-day notes |
 
 ## Files
