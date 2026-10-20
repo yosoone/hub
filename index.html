@@ -123,51 +123,38 @@ h2 {
 .arrow { color: var(--ink-soft); font-size: 1.1rem; transition: transform .25s ease, color .25s ease; }
 .site:hover .arrow, .site:focus-visible .arrow { transform: translateX(3px); color: var(--ai); }
 
-/* Follow: mailing list + RSS */
-.follow { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 1rem; }
-.box {
-  border: 1px solid var(--rule);
-  padding: 1.25rem;
-  display: grid;
-  gap: 0.6rem;
-  align-content: start;
-}
-.box h3 { margin: 0; font-family: var(--f-display); font-weight: 700; font-size: 1.1rem; }
-.box p { margin: 0; color: var(--ink-soft); font-size: 0.93rem; line-height: 1.55; }
-.btn {
-  justify-self: start;
-  margin-top: 0.3rem;
-  font-family: var(--f-mono);
-  font-size: 0.8rem;
-  letter-spacing: 0.04em;
-  color: var(--paper);
-  background: var(--ink);
-  padding: 0.55rem 0.95rem;
-  text-decoration: none;
-  transition: background-color .2s ease;
-}
-.btn:hover { background: var(--ai); }
-.btn:focus-visible { outline: 2px solid var(--ai); outline-offset: 3px; }
-.list-form { display: grid; gap: 0.45rem; margin-top: 0.3rem; }
+/* Follow: one plain column: mailing list, then feeds. No boxes, no side-by-side layout. */
+.follow { display: grid; gap: 1.6rem; }
+.follow h3 { margin: 0 0 0.3rem; font-family: var(--f-display); font-weight: 700; font-size: 1.1rem; }
+.follow p { margin: 0; color: var(--ink-soft); font-size: 0.93rem; line-height: 1.55; }
+.list-form { display: grid; gap: 0.5rem; margin-top: 0.8rem; }
 .list-form label { font-family: var(--f-mono); font-size: 0.72rem; letter-spacing: 0.06em; color: var(--ink-soft); }
-.list-row { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-.list-row input {
-  flex: 1 1 11rem; min-width: 0;
+.list-form input {
+  box-sizing: border-box; width: 100%; min-height: 44px;
   font: inherit; font-size: 1rem; color: var(--ink);
   background: transparent; border: 1px solid var(--rule); padding: 0.5rem 0.65rem;
 }
-.list-row input::placeholder { color: var(--ink-soft); }
-.list-row input:focus-visible { outline: 2px solid var(--ai); outline-offset: 2px; border-color: var(--ai); }
-.list-row .btn { margin-top: 0; border: 0; cursor: pointer; }
-.box .list-note { font-size: 0.8rem; }
-.feeds { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.25rem; }
-.feeds a { font-family: var(--f-mono); font-size: 0.8rem; color: var(--ai); text-underline-offset: 3px; }
+.list-form input::placeholder { color: var(--ink-soft); }
+.list-form input:focus-visible { outline: 2px solid var(--ai); outline-offset: 2px; border-color: var(--ai); }
+.list-form button {
+  justify-self: start; min-height: 44px; padding: 0 1.1rem;
+  font-family: var(--f-mono); font-size: 0.8rem; letter-spacing: 0.04em;
+  color: var(--paper); background: var(--ink); border: 0; cursor: pointer;
+  transition: background-color .2s ease;
+}
+.list-form button:hover { background: var(--ai); }
+.list-form button:focus-visible { outline: 2px solid var(--ai); outline-offset: 3px; }
+.follow .list-note { font-size: 0.8rem; }
+.feeds { list-style: none; margin: 0.6rem 0 0; padding: 0; display: grid; gap: 0.25rem; }
+.feeds a { font-family: var(--f-mono); font-size: 0.8rem; color: var(--ai); text-underline-offset: 3px; overflow-wrap: anywhere; }
 
 footer {
-  display: flex; flex-wrap: wrap; gap: 0.4rem 1.2rem; justify-content: space-between;
   font-family: var(--f-mono); font-size: 0.72rem; letter-spacing: 0.06em; color: var(--ink-soft);
   border-top: 1px solid var(--rule); padding-top: 1.2rem;
 }
+footer p { margin: 0; }
+footer a { color: inherit; text-underline-offset: 3px; }
+footer a:focus-visible { outline: 2px solid var(--ai); outline-offset: 2px; }
 
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 html,body{margin:0}
@@ -253,22 +240,20 @@ html,body{margin:0}
   <section aria-labelledby="follow-h">
     <h2 id="follow-h">Follow along</h2>
     <div class="follow">
-      <div class="box" id="mailing-list">
+      <div id="mailing-list">
         <h3>Mailing list</h3>
         <p>Occasional letters when something new is finished. No schedule, no noise.</p>
         <!-- Mailing list: one Buttondown list for all sites; the hidden tag records which site the sign-up came from. -->
         <form class="list-form" action="https://buttondown.com/api/emails/embed-subscribe/yoso" method="post" target="_blank">
           <label for="list-email">Email address</label>
-          <div class="list-row">
-            <input id="list-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
-            <button class="btn" type="submit">Subscribe</button>
-          </div>
+          <input id="list-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
           <input type="hidden" name="tag" value="hub">
           <input type="hidden" name="embed" value="1">
+          <button type="submit">Subscribe</button>
           <p class="list-note">Sent through Buttondown. You&rsquo;ll get an email to confirm, and every letter has an unsubscribe link.</p>
         </form>
       </div>
-      <div class="box">
+      <div>
         <h3>RSS</h3>
         <p>Follow each site in your feed reader.</p>
         <!-- TODO: confirm the feed URL for each site -->
@@ -282,8 +267,7 @@ html,body{margin:0}
   </section>
 
   <footer>
-    <span>© 2026 Yoso</span>
-    <span>Miyazaki, Japan</span>
+    <p>&copy; 2026 <a class="hub-link" href="https://hub.yoso.one">Yoso</a> · Miyazaki, Japan</p>
   </footer>
 </main>
 </body>
