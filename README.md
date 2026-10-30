@@ -6,7 +6,7 @@ Yoso's hub page: one static page linking to the vault, paintings, photography, s
 
 | Site | Address | Content |
 |---|---|---|
-| The Vault | [one.yoso.one](https://one.yoso.one) | Notes on Buddhism, Shinto, meditation, kokoro and Japan (Obsidian Publish) |
+| One | [one.yoso.one](https://one.yoso.one) | Notes on Buddhism, Shinto, meditation, kokoro and Japan (Obsidian Publish) |
 | Kuro | [kuro.yoso.one](https://kuro.yoso.one) | Black-and-white photography of Japan |
 | Shinsei | [shinsei.yoso.one](https://shinsei.yoso.one) | Sumi-e paintings and hanging scrolls |
 | River | [river.yoso.one](https://river.yoso.one) | Short texts |
@@ -71,4 +71,4 @@ A full copy of this site, with its history, is also backed up to the external dr
 
 ## Mailing list
 
-The sign-up form asks for an email address first; pressing **Continue** shows a list of Yoso's newsletters (The Vault, Yosokuro, Shinsei, River, On), with this site's own one already ticked. Each ticked box reaches Buttondown as a tag (`one`, `yosokuro`, `shinsei`, `river`, `on`), so to write to one newsletter's readers, send to that tag. The step is run by `assets/list-choice.js`, which is the same file on every site; without it the boxes simply show under the email field and the form still works. To add or rename a newsletter, change the boxes in every form, `NEWSLETTERS` in `check.py`, and this list, on every site.
+The sign-up form asks for an email address first; pressing **Continue** shows a list of Yoso's newsletters (One, Yosokuro, Shinsei, River, On), with this site's own one already ticked. Each ticked box reaches Buttondown as a tag (`one`, `yosokuro`, `shinsei`, `river`, `on`), so to write to one newsletter's readers, send to that tag. The step is run by `assets/list-choice.js`, which is the same file on every site; without it the boxes simply show under the email field and the form still works. To add or rename a newsletter, change the boxes in every form, `NEWSLETTERS` in `check.py`, and this list, on every site.
