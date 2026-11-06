@@ -19,7 +19,7 @@
   --ink: #1E2124;        /* sumi */
   --ink-soft: #5C6165;   /* diluted sumi */
   --rule: #CFCDC5;       /* faint brush line */
-  --ai: #80621C;         /* gold, darkened to read on washi */
+  --ai: #2F4B63;         /* ai-iro indigo */
   --wash: #E2E1DA;       /* hover wash */
   --f-display: "Shippori Mincho", "Hiragino Mincho ProN", "Yu Mincho", serif;
   --f-body: "Zen Kaku Gothic New", "Hiragino Sans", "Yu Gothic", system-ui, sans-serif;
@@ -28,12 +28,12 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --paper: #16181A; --ink: #E4E2DB; --ink-soft: #9A9C9C; --rule: #2C2F31;
-    --ai: #C9AF69; --wash: #1E2124; color-scheme: dark;
+    --ai: #9FB6CB; --wash: #1E2124; color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
   --paper: #16181A; --ink: #E4E2DB; --ink-soft: #9A9C9C; --rule: #2C2F31;
-  --ai: #C9AF69; --wash: #1E2124; color-scheme: dark;
+  --ai: #9FB6CB; --wash: #1E2124; color-scheme: dark;
 }
 
 body {
@@ -186,7 +186,7 @@ html,body{margin:0}
 .topnav a:hover { color: var(--ink); }
 .topnav a:focus-visible { outline: 2px solid var(--ai); outline-offset: 2px; }
 .topnav-links { display: flex; gap: 1.25rem; }
-.topnav-links a[aria-current="page"] { color: var(--ink); text-decoration: underline; text-decoration-color: var(--ai); text-decoration-thickness: 1px; text-underline-offset: 6px; }
+.topnav-links a[aria-current="page"] { color: var(--ink); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 6px; }
 
 /* The verse: same treatment as on One (light weight, gold rule on the left) */
 .bio.verse { max-width: none; padding-left: 24px; border-left: 2px solid #C9AF69; font-weight: 300; font-size: clamp(22px, 5.5vw, 28px); line-height: 1.5; color: var(--ink); }
@@ -324,7 +324,7 @@ html,body{margin:0}
   </section>
 
   <footer>
-    <p>&copy; 2026 <a class="hub-link" href="https://hub.yoso.one">Yoso</a> · Miyazaki, Japan · <span class="version" data-version>Beta 0.15</span></p>
+    <p>&copy; 2026 <a class="hub-link" href="https://hub.yoso.one">Yoso</a> · Miyazaki, Japan · <span class="version" data-version>Beta 0.16</span></p>
   </footer>
 </main>
 <script src="assets/list-choice.js" defer></script>
