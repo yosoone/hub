@@ -10,7 +10,7 @@
 <meta name="description" content="Yoso — multidisciplinary artist in Miyazaki.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500&family=IBM+Plex+Mono:wght@400&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&family=Zen+Kaku+Gothic+New:wght@300;400;500&family=IBM+Plex+Mono:wght@400&display=swap">
 <style>
 /* Layout: one narrow left-aligned column, like a hand-ruled index card; each site is a row keyed by its kanji. */
 :root {
@@ -186,6 +186,9 @@ html,body{margin:0}
 .topnav a:focus-visible { outline: 2px solid var(--ai); outline-offset: 2px; }
 .topnav-links { display: flex; gap: 1.25rem; }
 .topnav-links a[aria-current="page"] { color: var(--ink); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 6px; }
+
+/* The verse: same treatment as on One (light weight, gold rule on the left) */
+.bio.verse { max-width: none; padding-left: 24px; border-left: 2px solid #C9AF69; font-weight: 300; font-size: clamp(1.35rem, 5.5vw, 1.78rem); line-height: 1.5; color: var(--ink); }
 </style>
 
 </head>
@@ -198,7 +201,7 @@ html,body{margin:0}
       <span class="topnav-links"><a href="./" aria-current="page">Hub</a><a href="about.html">About</a></span>
     </nav>
     <h1>Yoso</h1>
-    <p class="bio">Awakening mind...<br>
+    <p class="bio verse">Awakening mind...<br>
       that which is conscious...<br>
       for the good of sentience.</p>
   </header>
@@ -309,7 +312,7 @@ html,body{margin:0}
   </section>
 
   <footer>
-    <p>&copy; 2026 <a class="hub-link" href="https://hub.yoso.one">Yoso</a> · Miyazaki, Japan · <span class="version" data-version>Beta 0.11</span></p>
+    <p>&copy; 2026 <a class="hub-link" href="https://hub.yoso.one">Yoso</a> · Miyazaki, Japan · <span class="version" data-version>Beta 0.12</span></p>
   </footer>
 </main>
 <script src="assets/list-choice.js" defer></script>
