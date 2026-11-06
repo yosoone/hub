@@ -203,16 +203,30 @@ h2,
 .site-url,
 .list-form label,
 .feeds a,
-footer,
 .about figcaption,
 .about .sig-name{font-family:'IBM Plex Mono','Zen Kaku Gothic New',ui-monospace,Menlo,monospace;font-weight:400;font-style:normal;font-size:12px;line-height:1.5;letter-spacing:.14em;text-transform:uppercase}
 .list-form button{font-family:'IBM Plex Mono','Zen Kaku Gothic New',ui-monospace,Menlo,monospace;font-weight:500;font-style:normal;font-size:12px;line-height:1;letter-spacing:.14em;text-transform:uppercase}
 .bio.verse{border-left:2px solid var(--gold);padding-left:24px}
-:root{--gold:#E1BA4B;--gold-ink:#86641A;--ai:#86641A}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--gold-ink:#E1BA4B;--ai:#E1BA4B}}
-:root[data-theme="dark"]{--gold-ink:#E1BA4B;--ai:#E1BA4B}
+:root{--gold:#E1BA4B;--gold-ink:#86641A}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--gold-ink:#E1BA4B}}
+:root[data-theme="dark"]{--gold-ink:#E1BA4B}
+:root{--ai:var(--gold-ink)}
 .feeds a,.site-url{color:var(--gold-ink);text-transform:none;letter-spacing:.04em}
 .bio.verse{max-width:none}
+.site:hover,.site:focus-visible{background:transparent;padding-left:0}
+footer{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:8px 24px;margin-top:0;padding:20px 0 48px;border-top:1px solid var(--rule);font-family:'IBM Plex Mono','Zen Kaku Gothic New',ui-monospace,Menlo,monospace;font-weight:400;font-size:12px;line-height:1.6;letter-spacing:.06em;text-transform:none;color:var(--ink-soft)}
+footer p{margin:0}
+footer a{color:inherit;text-decoration:underline;text-decoration-color:currentColor;text-underline-offset:3px;text-decoration-thickness:1px}
+footer a:hover,
+.topnav a:hover,
+.mark a:hover,
+.feeds a:hover,
+.about-link:hover,
+.site:hover .site-name,
+.site:hover .arrow,
+.site:focus-visible .site-name{color:var(--gold-ink)}
+.topnav-links a[aria-current="page"]{text-decoration:underline;text-decoration-color:var(--gold-ink);text-decoration-thickness:1px;text-underline-offset:6px}
+.list-form button:hover{background:var(--gold);border-color:var(--gold);color:#1C1C1A;opacity:1}
 /* == end family type system == */
 </style>
 
@@ -281,7 +295,8 @@ footer,
   </section>
 
   <footer>
-    <p>&copy; 2026 <a class="hub-link" href="https://hub.yoso.one">Yoso</a> · Miyazaki, Japan · <span class="version" data-version>Beta 0.17</span></p>
+    <span>&copy; 2026 <a class="hub-link" href="https://hub.yoso.one">Yoso</a> · Miyazaki, Japan</span>
+    <span><span class="version" data-version>Beta 0.18</span></span>
   </footer>
 </main>
 <script src="assets/list-choice.js" defer></script>
