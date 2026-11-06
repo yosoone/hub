@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta property="og:title" content="About Yoso">
+<meta property="og:url" content="https://hub.yoso.one/about.html">
+<link rel="me" href="https://mastodon.social/@Yosoone">
+<title>About · Yoso</title>
+<meta name="description" content="Yoso — multidisciplinary artist in Miyazaki.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500&family=IBM+Plex+Mono:wght@400&display=swap">
+<style>
+/* Layout: one narrow left-aligned column, like a hand-ruled index card; each site is a row keyed by its kanji. */
+:root {
+  --paper: #ECEBE6;      /* washi, slightly cool */
+  --ink: #1E2124;        /* sumi */
+  --ink-soft: #5C6165;   /* diluted sumi */
+  --rule: #CFCDC5;       /* faint brush line */
+  --ai: #2F4B63;         /* ai-iro indigo */
+  --wash: #E2E1DA;       /* hover wash */
+  --f-display: "Shippori Mincho", "Hiragino Mincho ProN", "Yu Mincho", serif;
+  --f-body: "Zen Kaku Gothic New", "Hiragino Sans", "Yu Gothic", system-ui, sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #16181A; --ink: #E4E2DB; --ink-soft: #9A9C9C; --rule: #2C2F31;
+    --ai: #9FB6CB; --wash: #1E2124; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #16181A; --ink: #E4E2DB; --ink-soft: #9A9C9C; --rule: #2C2F31;
+  --ai: #9FB6CB; --wash: #1E2124; color-scheme: dark;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--f-body);
+  font-size: 16px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+/* Family mark: centred at the top of every Yoso site, linking to the hub */
+.family-mark { display: block; width: 48px; margin: 24px auto 0; line-height: 0; }
+.family-mark img { display: block; width: 48px; height: 48px; }
+.family-mark:focus-visible { outline: 2px solid var(--ai); outline-offset: 4px; }
+.page {
+  max-width: 38rem;
+  margin: 0 auto;
+  padding-block: clamp(3rem, 10vw, 6rem) 3rem;
+  padding-left: max(20px, env(safe-area-inset-left, 0px));
+  padding-right: max(20px, env(safe-area-inset-right, 0px));
+  display: grid;
+  gap: 3.25rem;
+}
+
+/* Header */
+header { display: grid; gap: 1.1rem; }
+.mark {
+  font-family: var(--f-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  color: var(--ink-soft);
+}
+h1 {
+  font-family: var(--f-display);
+  font-weight: 700;
+  font-size: clamp(3.2rem, 14vw, 5rem);
+  line-height: 0.95;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+.bio {
+  margin: 0;
+  max-width: 32rem;
+  color: var(--ink-soft);
+  text-wrap: pretty;
+}
+.bio strong { color: var(--ink); font-weight: 500; }
+
+/* Section labels */
+h2 {
+  font-family: var(--f-mono);
+  font-weight: 400;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin: 0 0 0.6rem;
+}
+
+/* Site rows */
+.sites { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--rule); }
+.sites li { border-bottom: 1px solid var(--rule); }
+.site {
+  display: grid;
+  grid-template-columns: 3.2rem 1fr auto;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.15rem 0.5rem 1.15rem 0;
+  color: inherit;
+  text-decoration: none;
+  transition: background-color .25s ease, padding .25s ease;
+}
+.site:hover, .site:focus-visible { background: var(--wash); padding-left: 0.5rem; }
+.site:focus-visible { outline: 2px solid var(--ai); outline-offset: 2px; }
+.kanji {
+  font-family: var(--f-display);
+  font-weight: 500;
+  font-size: 2.1rem;
+  line-height: 1;
+  text-align: center;
+  color: var(--ai);
+}
+.kanji.at { font-family: var(--f-mono); font-weight: 400; font-size: 1.6rem; }
+.site-text { min-width: 0; display: grid; gap: 0.1rem; }
+.site-name { font-family: var(--f-display); font-weight: 700; font-size: 1.2rem; }
+.site-desc { color: var(--ink-soft); font-size: 0.93rem; line-height: 1.5; }
+.site-url { font-family: var(--f-mono); font-size: 0.75rem; color: var(--ai); overflow-wrap: anywhere; }
+.arrow { color: var(--ink-soft); font-size: 1.1rem; transition: transform .25s ease, color .25s ease; }
+.site:hover .arrow, .site:focus-visible .arrow { transform: translateX(3px); color: var(--ai); }
+
+/* Follow: one plain column: mailing list, then feeds. No boxes, no side-by-side layout. */
+.follow { display: grid; gap: 1.6rem; }
+.follow h3 { margin: 0 0 0.3rem; font-family: var(--f-display); font-weight: 700; font-size: 1.1rem; }
+.follow p { margin: 0; color: var(--ink-soft); font-size: 0.93rem; line-height: 1.55; }
+.list-form { display: grid; gap: 0.5rem; margin-top: 0.8rem; }
+.list-form label { font-family: var(--f-mono); font-size: 0.72rem; letter-spacing: 0.06em; color: var(--ink-soft); }
+.list-form input {
+  box-sizing: border-box; width: 100%; min-height: 44px;
+  font: inherit; font-size: 1rem; color: var(--ink);
+  background: transparent; border: 1px solid var(--rule); padding: 0.5rem 0.65rem;
+}
+.list-form input::placeholder { color: var(--ink-soft); }
+.list-form input:focus-visible { outline: 2px solid var(--ai); outline-offset: 2px; border-color: var(--ai); }
+.list-form button {
+  justify-self: start; min-height: 44px; padding: 0 1.1rem;
+  font-family: var(--f-mono); font-size: 0.8rem; letter-spacing: 0.04em;
+  color: var(--paper); background: var(--ink); border: 0; cursor: pointer;
+  transition: background-color .2s ease;
+}
+.list-form button:hover { background: var(--ai); }
+.list-form button:focus-visible { outline: 2px solid var(--ai); outline-offset: 3px; }
+.follow .list-note { font-size: 0.8rem; }
+.feeds { list-style: none; margin: 0.6rem 0 0; padding: 0; display: grid; gap: 0.25rem; }
+.feeds a { font-family: var(--f-mono); font-size: 0.8rem; color: var(--ai); text-underline-offset: 3px; overflow-wrap: anywhere; }
+
+footer {
+  font-family: var(--f-mono); font-size: 0.72rem; letter-spacing: 0.06em; color: var(--ink-soft);
+  border-top: 1px solid var(--rule); padding-top: 1.2rem;
+}
+footer p { margin: 0; }
+footer a { color: inherit; text-underline-offset: 3px; }
+footer a:focus-visible { outline: 2px solid var(--ai); outline-offset: 2px; }
+
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+html,body{margin:0}
+
+/* About page and the quiet link to it */
+.about-link { justify-self: start; font-family: var(--f-mono); font-size: 0.75rem; letter-spacing: 0.08em; color: var(--ink-soft); text-decoration: none; min-height: 44px; display: inline-flex; align-items: center; }
+.about-link:hover { color: var(--ink); }
+.about-link:focus-visible { outline: 2px solid var(--ai); outline-offset: 2px; }
+.mark a { color: inherit; text-decoration: none; }
+.mark a:focus-visible { outline: 2px solid var(--ai); outline-offset: 2px; }
+.about figure { margin: 0 0 2.5rem; width: min(333px, 100%); }
+.about img.photo { display: block; width: 100%; height: auto; aspect-ratio: 4/5; object-fit: cover; border-radius: 3px; }
+.about figcaption { margin-top: 0.75rem; font-family: var(--f-mono); font-size: 0.72rem; letter-spacing: 0.04em; color: var(--ink-soft); }
+.about h1 { margin: 0 0 1.5rem; font-family: var(--f-display); font-weight: 500; font-size: clamp(2rem, 6vw, 2.6rem); line-height: 1.2; }
+.about p { margin: 0; font-size: 1.05rem; line-height: 1.95; color: var(--ink-soft); text-wrap: pretty; }
+.about p + p { margin-top: 1.1em; }
+.about .sign { display: flex; align-items: flex-end; gap: 14px; margin-top: 2.25rem; }
+.about .sign img { width: 38px; height: 204px; }
+.about .sign .sig-dark { display: none; }
+.about .sig-name { font-family: var(--f-mono); font-size: 0.75rem; letter-spacing: 0.06em; line-height: 1.7; color: var(--ink-soft); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .about .sign .sig-light { display: none; } :root:not([data-theme="light"]) .about .sign .sig-dark { display: inline-block; } }
+:root[data-theme="dark"] .about .sign .sig-light { display: none; }
+:root[data-theme="dark"] .about .sign .sig-dark { display: inline-block; }
+</style>
+
+</head>
+<body>
+<a class="family-mark" href="https://hub.yoso.one"><img src="images/yoso-mark.png" alt="Yoso" width="48" height="48"></a>
+<main class="page">
+  <header>
+    <span class="mark"><a href="./">HUB.YOSO.ONE · 宮崎</a></span>
+  </header>
+
+  <!-- DRAFT text for Yoso to rewrite in his own words. Photo and seal borrowed from River for now. -->
+  <section class="about" aria-labelledby="about-h">
+    <figure>
+      <img class="photo" src="images/about.jpg" alt="Yoso in profile, silhouetted against a bright window" width="640" height="800">
+      <figcaption>Kougenji Temple, Kumamoto<br>Photograph by Qualishu</figcaption>
+    </figure>
+    <h1 id="about-h">About Yoso</h1>
+    <p>I live and work in Miyazaki, in the south of Kyushu. My days begin with meditation, and everything else grows from there: photography, ink on paper, installation and writing.</p>
+    <p>I think of each as a field to be cultivated. The art is tended the way the heart is: slowly, daily, by returning to it. A photograph of a street at dawn, a brushstroke left to dry, a few lines written after sitting: each is a trace of the same practice, rooted in Buddhist and Shinto ways of seeing.</p>
+    <p>What I hope to share is simple: attention, compassion and a little more awareness, for the good of all who feel.</p>
+    <p>Wishing you happiness and prosperity.</p>
+    <p>Gassho</p>
+    <p class="sign"><img class="sig-light" src="images/signature.png" alt="" width="38" height="204"><img class="sig-dark" src="images/signature-dark.png" alt="" width="38" height="204"><span class="sig-name">Yoso<br>Miyazaki, Japan</span></p>
+  </section>
+
+  <section aria-labelledby="follow-h">
+    <h2 id="follow-h">Follow along</h2>
+    <div class="follow">
+      <div id="mailing-list">
+        <h3>Mailing list</h3>
+        <p>Occasional letters when something new is finished. No schedule, no noise.</p>
+        <!-- Mailing list: one Buttondown list for all Yoso sites; readers choose their newsletters, each one a tag. -->
+        <form class="list-form" action="https://buttondown.com/api/emails/embed-subscribe/yoso" method="post" target="_blank">
+          <label for="list-email">Email address</label>
+          <input id="list-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+          <!-- Newsletter choice: each ticked box becomes a Buttondown tag. Shown after the email step by assets/list-choice.js. -->
+          <fieldset class="list-choice" data-list-choice>
+            <legend>Which newsletters would you like?</legend>
+            <label class="lc-box"><input type="checkbox" name="tag" value="one"><span><span class="lc-name">One</span><span class="lc-desc">Notes, essays and research from one.yoso.one</span></span></label>
+            <label class="lc-box"><input type="checkbox" name="tag" value="yosokuro"><span><span class="lc-name">Yosokuro</span><span class="lc-desc">Black-and-white photographs of Japan</span></span></label>
+            <label class="lc-box"><input type="checkbox" name="tag" value="shinsei"><span><span class="lc-name">Shinsei</span><span class="lc-desc">New paintings, scrolls and exhibitions</span></span></label>
+            <label class="lc-box"><input type="checkbox" name="tag" value="river"><span><span class="lc-name">River</span><span class="lc-desc">New short texts</span></span></label>
+            <label class="lc-box"><input type="checkbox" name="tag" value="on"><span><span class="lc-name">On</span><span class="lc-desc">Each numbered issue of the magazine</span></span></label>
+          </fieldset>
+          <input type="hidden" name="embed" value="1">
+          <button type="submit">Subscribe</button>
+          <p class="list-note">Sent through Buttondown. You&rsquo;ll get an email to confirm, and every letter has an unsubscribe link.</p>
+        </form>
+      </div>
+      <div>
+        <h3>RSS</h3>
+        <p>Follow each site in your feed reader.</p>
+        <!-- TODO: confirm the feed URL for each site -->
+        <ul class="feeds">
+          <li><a href="https://one.yoso.one/rss.xml">one.yoso.one/rss.xml</a></li>
+          <li><a href="https://kuro.yoso.one/feed.xml">kuro.yoso.one/feed.xml</a></li>
+          <li><a href="https://river.yoso.one/feed.xml">river.yoso.one/feed.xml</a></li>
+          <li><a href="https://on.yoso.one/feed.xml">on.yoso.one/feed.xml</a> (everything together)</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2026 <a class="hub-link" href="https://hub.yoso.one">Yoso</a> · Miyazaki, Japan · <span class="version" data-version>Beta 0.10</span></p>
+  </footer>
+</main>
+<script src="assets/list-choice.js" defer></script>
+<script src="assets/stats.js" defer></script>
+</body>
+</html>

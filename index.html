@@ -158,6 +158,26 @@ footer a:focus-visible { outline: 2px solid var(--ai); outline-offset: 2px; }
 
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 html,body{margin:0}
+
+/* About page and the quiet link to it */
+.about-link { justify-self: start; font-family: var(--f-mono); font-size: 0.75rem; letter-spacing: 0.08em; color: var(--ink-soft); text-decoration: none; min-height: 44px; display: inline-flex; align-items: center; }
+.about-link:hover { color: var(--ink); }
+.about-link:focus-visible { outline: 2px solid var(--ai); outline-offset: 2px; }
+.mark a { color: inherit; text-decoration: none; }
+.mark a:focus-visible { outline: 2px solid var(--ai); outline-offset: 2px; }
+.about figure { margin: 0 0 2.5rem; width: min(333px, 100%); }
+.about img.photo { display: block; width: 100%; height: auto; aspect-ratio: 4/5; object-fit: cover; border-radius: 3px; }
+.about figcaption { margin-top: 0.75rem; font-family: var(--f-mono); font-size: 0.72rem; letter-spacing: 0.04em; color: var(--ink-soft); }
+.about h1 { margin: 0 0 1.5rem; font-family: var(--f-display); font-weight: 500; font-size: clamp(2rem, 6vw, 2.6rem); line-height: 1.2; }
+.about p { margin: 0; font-size: 1.05rem; line-height: 1.95; color: var(--ink-soft); text-wrap: pretty; }
+.about p + p { margin-top: 1.1em; }
+.about .sign { display: flex; align-items: flex-end; gap: 14px; margin-top: 2.25rem; }
+.about .sign img { width: 38px; height: 204px; }
+.about .sign .sig-dark { display: none; }
+.about .sig-name { font-family: var(--f-mono); font-size: 0.75rem; letter-spacing: 0.06em; line-height: 1.7; color: var(--ink-soft); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .about .sign .sig-light { display: none; } :root:not([data-theme="light"]) .about .sign .sig-dark { display: inline-block; } }
+:root[data-theme="dark"] .about .sign .sig-light { display: none; }
+:root[data-theme="dark"] .about .sign .sig-dark { display: inline-block; }
 </style>
 
 </head>
@@ -170,6 +190,7 @@ html,body{margin:0}
     <p class="bio">Awakening mind...<br>
       that which is conscious...<br>
       for the good of sentience.</p>
+    <a class="about-link" href="about.html">About →</a>
   </header>
 
   <section aria-labelledby="sites-h">
@@ -278,7 +299,7 @@ html,body{margin:0}
   </section>
 
   <footer>
-    <p>&copy; 2026 <a class="hub-link" href="https://hub.yoso.one">Yoso</a> · Miyazaki, Japan · <span class="version" data-version>Beta 0.9</span></p>
+    <p>&copy; 2026 <a class="hub-link" href="https://hub.yoso.one">Yoso</a> · Miyazaki, Japan · <span class="version" data-version>Beta 0.10</span></p>
   </footer>
 </main>
 <script src="assets/list-choice.js" defer></script>
