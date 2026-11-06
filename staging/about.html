@@ -179,6 +179,14 @@ html,body{margin:0}
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .about .sign .sig-light { display: none; } :root:not([data-theme="light"]) .about .sign .sig-dark { display: inline-block; } }
 :root[data-theme="dark"] .about .sign .sig-light { display: none; }
 :root[data-theme="dark"] .about .sign .sig-dark { display: inline-block; }
+
+/* Top navigation, the same on every page of the hub */
+.topnav { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0 1.25rem; }
+.topnav a { font-family: var(--f-mono); font-size: 0.75rem; letter-spacing: 0.12em; color: var(--ink-soft); text-decoration: none; min-height: 44px; display: inline-flex; align-items: center; }
+.topnav a:hover { color: var(--ink); }
+.topnav a:focus-visible { outline: 2px solid var(--ai); outline-offset: 2px; }
+.topnav-links { display: flex; gap: 1.25rem; }
+.topnav-links a[aria-current="page"] { color: var(--ink); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 6px; }
 </style>
 
 </head>
@@ -186,7 +194,10 @@ html,body{margin:0}
 <a class="family-mark" href="https://hub.yoso.one"><img src="images/yoso-mark.png" alt="Yoso" width="48" height="48"></a>
 <main class="page">
   <header>
-    <span class="mark"><a href="./">HUB.YOSO.ONE · 宮崎</a></span>
+    <nav class="topnav" aria-label="Hub">
+      <a class="mark" href="./">HUB.YOSO.ONE · 宮崎</a>
+      <span class="topnav-links"><a href="./">Hub</a><a href="about.html" aria-current="page">About</a></span>
+    </nav>
   </header>
 
   <!-- DRAFT text for Yoso to rewrite in his own words. Photo and seal borrowed from River for now. -->
@@ -243,7 +254,7 @@ html,body{margin:0}
   </section>
 
   <footer>
-    <p>&copy; 2026 <a class="hub-link" href="https://hub.yoso.one">Yoso</a> · Miyazaki, Japan · <span class="version" data-version>Beta 0.10</span></p>
+    <p>&copy; 2026 <a class="hub-link" href="https://hub.yoso.one">Yoso</a> · Miyazaki, Japan · <span class="version" data-version>Beta 0.11</span></p>
   </footer>
 </main>
 <script src="assets/list-choice.js" defer></script>
